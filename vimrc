@@ -24,6 +24,11 @@ set number      "add line numbers
 set showbreak=...
 set wrap linebreak nolist
 
+"mapping for leader key
+let mapleader = ","
+"mapping for clearing after search
+nmap <SPACE> <SPACE>:noh<CR>
+
 "mapping for command key to map navigation thru display lines instead
 "of just numbered lines
 vmap <D-j> gj
@@ -232,7 +237,7 @@ set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
 set formatoptions-=o "dont continue comments when pushing o/O
 
 "vertical/horizontal scroll off settings
-set scrolloff=3
+set scrolloff=5
 set sidescrolloff=7
 set sidescroll=1
 
@@ -254,6 +259,9 @@ set hidden
 let g:CommandTMaxHeight=10
 let g:CommandTMatchWindowAtTop=1
 
+" map to change guifont
+map <F3> <Esc>:set guifont=*<CR>
+
 if has("gui_running")
     "tell the term has 256 colors
     set t_Co=256
@@ -266,7 +274,7 @@ if has("gui_running")
     if has("gui_gnome")
         set term=gnome-256color
         colorscheme railscasts
-        set guifont=Monospace\ Bold\ 12
+        set guifont=Monospace\ 9
     endif
 
     if has("gui_mac") || has("gui_macvim")
@@ -295,7 +303,7 @@ endif
 " PeepOpen uses <Leader>p as well so you will need to redefine it so something
 " else in your ~/.vimrc file, such as:
 " nmap <silent> <Leader>q <Plug>PeepOpen
-
+let g:NERDTreeQuitOnOpen = 1
 silent! nmap <silent> <Leader>p :NERDTreeToggle<CR>
 nnoremap <silent> <C-f> :call FindInNERDTree()<CR> 
 
@@ -315,6 +323,7 @@ noremap Q gq
 "make Y consistent with C and D
 nnoremap Y y$
 
+nmap <M-v> "+P 
 "bindings for ragtag
 inoremap <M-o>       <Esc>o
 inoremap <C-j>       <Down>
@@ -390,6 +399,10 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
+"key mapping for buffer navigation
+map <C-right> :bn<CR>
+map <C-left> :bp<CR>
+
 "key mapping for saving file
 nmap <C-s> :w<CR>
 
@@ -404,3 +417,14 @@ vmap <D-[> <gv
 vmap <D-]> >gv
 
 let ScreenShot = {'Icon':0, 'Credits':0, 'force_background':'#FFFFFF'} 
+
+"Updating settings
+
+nmap <leader>v :tabedit $MYVIMRC<CR>
+
+nmap <f12> :call ReloadAllSnippets()<CR>
+
+" make no backups please - they cause problems with my VCS, thanks!
+set nobackup
+set nowritebackup
+set noswapfile
